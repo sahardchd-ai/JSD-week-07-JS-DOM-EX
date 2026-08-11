@@ -1,0 +1,679 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Raise Your Tree - Garden</title>
+    <!-- Material Symbols for icons -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&amp;family=Be+Vietnam+Pro:wght@400;500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <!-- Custom CSS for layout, styling, and animations -->
+    <style>
+      :root {
+        --primary: #154212;
+        --primary-container: #2d5a27;
+        --on-primary: #ffffff;
+        --secondary: #80552c;
+        --background: #fbf9f4;
+        --on-background: #1b1c19;
+        --surface: #fbf9f4;
+        --on-surface: #1b1c19;
+        --surface-variant: #e4e2dd;
+        --on-surface-variant: #42493e;
+        --surface-container: #f0eee9;
+        --surface-container-high: #eae8e3;
+        --surface-dim: #dbdad5;
+        --outline: #72796e;
+        --tertiary-container: #c7a938;
+        --on-tertiary-container: #4d3e00;
+
+        --font-body: "Be Vietnam Pro", sans-serif;
+        --font-heading: "Space Mono", monospace;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background-color: var(--background);
+        color: var(--on-background);
+        font-family: var(--font-body);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        padding-top: 64px;
+        padding-bottom: 80px;
+      }
+
+      /* Header */
+      .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 64px;
+        background-color: var(--surface);
+        border-bottom: 4px solid var(--primary);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 16px;
+        z-index: 50;
+      }
+
+      .header-logo {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .header-logo .material-symbols-outlined {
+        color: var(--primary);
+        font-size: 30px;
+      }
+
+      .header-title {
+        font-family: var(--font-heading);
+        font-weight: bold;
+        font-size: 20px;
+        color: var(--primary);
+        text-transform: uppercase;
+      }
+
+      .settings-btn {
+        background: none;
+        border: none;
+        color: var(--primary);
+        cursor: pointer;
+        padding: 0;
+      }
+
+      .settings-btn:hover {
+        color: var(--primary-container);
+      }
+
+      .settings-btn .material-symbols-outlined {
+        font-size: 30px;
+      }
+
+      /* Main Area */
+      .main-area {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        padding: 24px 16px;
+        max-width: 448px;
+        margin: 0 auto;
+        width: 100%;
+      }
+
+      /* HUD */
+      .hud-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 24px;
+        width: 100%;
+      }
+
+      .leaves-box {
+        background-color: var(--surface-container-high);
+        border: 2px solid var(--primary);
+        border-radius: 8px;
+        padding: 16px 24px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        max-width: 250px;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+      }
+
+      .leaves-label {
+        font-family: var(--font-heading);
+        font-size: 14px;
+        font-weight: bold;
+        color: var(--on-surface-variant);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-bottom: 8px;
+      }
+
+      .leaves-value {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .leaves-icon {
+        width: 32px;
+        height: 32px;
+        image-rendering: pixelated;
+      }
+
+      .leaves-count {
+        font-family: var(--font-heading);
+        font-weight: bold;
+        font-size: 48px;
+        color: var(--primary);
+        line-height: 1;
+      }
+
+      .level-bar-container {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        width: 100%;
+        max-width: 250px;
+        margin-top: 16px;
+      }
+
+      .level-label {
+        font-family: var(--font-heading);
+        font-weight: bold;
+        font-size: 14px;
+        color: var(--primary);
+      }
+
+      .progress-track {
+        flex-grow: 1;
+        height: 24px;
+        background-color: var(--surface-dim);
+        border-radius: 9999px;
+        border: 2px solid var(--primary);
+        overflow: hidden;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background-color: var(--primary-container);
+        width: 20%;
+      }
+
+      /* Interactive Tree Area */
+      .tree-section {
+        flex-grow: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        background-color: var(--surface-container);
+        border-radius: 12px;
+        border: 4px solid var(--primary);
+        overflow: hidden;
+        cursor: pointer;
+        margin-bottom: 24px;
+        user-select: none;
+        box-shadow:
+          0 4px 6px -1px rgba(0, 0, 0, 0.1),
+          0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      }
+
+      .multiplier-badge {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        background-color: var(--tertiary-container);
+        color: var(--on-tertiary-container);
+        font-family: var(--font-heading);
+        font-weight: bold;
+        font-size: 12px;
+        padding: 4px 8px;
+        border-radius: 4px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        z-index: 10;
+      }
+
+      .tree-container {
+        position: relative;
+        width: 256px;
+        height: 256px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+
+      .tree-sprite {
+        width: 300%;
+        max-width: none;
+        height: auto;
+        object-fit: cover;
+        object-position: center;
+        image-rendering: pixelated;
+        transform-origin: bottom;
+        transition: transform 0.15s;
+      }
+
+      .tree-hint {
+        position: absolute;
+        bottom: 16px;
+        font-family: var(--font-heading);
+        font-weight: bold;
+        font-size: 14px;
+        color: var(--on-surface-variant);
+        opacity: 0.6;
+      }
+
+      /* Upgrades */
+      .upgrades-section {
+        background-color: var(--surface-container);
+        border-radius: 16px 16px 0 0;
+        border: 2px solid var(--primary);
+        border-bottom: 0;
+        padding: 16px;
+        margin: 0 -16px;
+        padding-bottom: 32px;
+      }
+
+      .upgrades-title {
+        font-family: var(--font-heading);
+        font-weight: bold;
+        font-size: 20px;
+        color: var(--primary);
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        text-transform: uppercase;
+      }
+
+      .upgrades-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .upgrade-btn {
+        width: 100%;
+        background-color: var(--surface-container-high);
+        border: 2px solid var(--outline);
+        border-radius: 8px;
+        padding: 12px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        text-align: left;
+        cursor: pointer;
+        transition: border-color 0.2s;
+      }
+
+      .upgrade-btn:hover {
+        border-color: var(--primary);
+      }
+
+      .upgrade-btn.locked {
+        border-color: var(--surface-variant);
+        opacity: 0.75;
+        cursor: default;
+      }
+
+      .upgrade-btn.locked:hover {
+        border-color: var(--surface-variant);
+      }
+
+      .upgrade-icon-box {
+        width: 64px;
+        height: 64px;
+        background-color: var(--surface);
+        border-radius: 4px;
+        border: 2px solid var(--outline);
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+
+      .upgrade-btn.locked .upgrade-icon-box {
+        border-color: var(--surface-variant);
+      }
+
+      .upgrade-icon {
+        width: 200%;
+        height: 200%;
+        object-fit: cover;
+        image-rendering: pixelated;
+      }
+
+      .upgrade-icon.locked {
+        filter: grayscale(100%);
+      }
+
+      .upgrade-icon-water {
+        object-position: 0 0;
+      }
+
+      .upgrade-icon-fert {
+        object-position: 100% 0;
+      }
+
+      .upgrade-icon-sun {
+        object-position: 0 100%;
+      }
+
+      .upgrade-details {
+        flex-grow: 1;
+      }
+
+      .upgrade-name {
+        font-family: var(--font-heading);
+        font-weight: bold;
+        font-size: 18px;
+        color: var(--on-surface);
+        margin-bottom: 2px;
+      }
+
+      .upgrade-btn.locked .upgrade-name {
+        color: var(--on-surface-variant);
+      }
+
+      .upgrade-desc {
+        font-size: 14px;
+        color: var(--on-surface-variant);
+      }
+
+      .upgrade-action {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        flex-shrink: 0;
+      }
+
+      .upgrade-cost {
+        font-family: var(--font-heading);
+        font-weight: bold;
+        color: var(--secondary);
+      }
+
+      .upgrade-btn.locked .upgrade-cost {
+        color: var(--on-surface-variant);
+      }
+
+      .upgrade-buy-badge {
+        background-color: var(--primary);
+        color: var(--on-primary);
+        font-family: var(--font-heading);
+        font-weight: bold;
+        font-size: 12px;
+        padding: 4px 8px;
+        border-radius: 4px;
+        margin-top: 4px;
+      }
+
+      .upgrade-locked-badge {
+        background-color: var(--surface-dim);
+        color: var(--on-surface-variant);
+        font-family: var(--font-heading);
+        font-weight: bold;
+        font-size: 12px;
+        padding: 4px 8px;
+        border-radius: 4px;
+        margin-top: 4px;
+      }
+
+      /* Bottom Nav */
+      .bottom-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 80px;
+        background-color: var(--surface);
+        border-top: 4px solid var(--primary);
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding: 0 8px;
+        z-index: 50;
+      }
+
+      .nav-btn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 80px;
+        height: 64px;
+        background: none;
+        border: none;
+        color: var(--on-surface-variant);
+        cursor: pointer;
+        transition: color 0.2s;
+      }
+
+      .nav-btn:hover {
+        color: var(--primary);
+      }
+
+      .nav-btn.active {
+        background-color: var(--primary);
+        color: var(--on-primary);
+        border-radius: 12px;
+      }
+
+      .nav-btn.active:hover {
+        color: var(--on-primary);
+      }
+
+      .nav-icon {
+        font-size: 30px;
+      }
+
+      .nav-label {
+        font-family: var(--font-heading);
+        font-weight: bold;
+        font-size: 10px;
+        margin-top: 4px;
+      }
+
+      /* Animations */
+      @keyframes floatUp {
+        0% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        100% {
+          opacity: 0;
+          transform: translateY(-30px);
+        }
+      }
+      .floating-text {
+        position: absolute;
+        animation: floatUp 1s ease-out forwards;
+        pointer-events: none;
+        color: #154212;
+        font-family: "Space Mono", monospace;
+        font-weight: bold;
+        font-size: 20px;
+        z-index: 20;
+      }
+
+      @keyframes bop {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(0.95) translateY(5px);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+      .tree-active {
+        animation: bop 0.15s ease-in-out;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header Section -->
+    <header class="header">
+      <div class="header-logo">
+        <span class="material-symbols-outlined">forest</span>
+        <h1 class="header-title">Raise Your Tree</h1>
+      </div>
+      <button class="settings-btn">
+        <span class="material-symbols-outlined">settings</span>
+      </button>
+    </header>
+    <!-- Main Game Area -->
+    <main class="main-area">
+      <!-- Score HUD -->
+      <section class="hud-section">
+        <div class="leaves-box">
+          <span class="leaves-label">Leaves Collected</span>
+          <div class="leaves-value">
+            <img
+              alt="Sapling Logo"
+              class="leaves-icon"
+              src="https://lh3.googleusercontent.com/aida/AP1WRLtqIQN2_usvnbI03D2MMTllucb1tDaVpClgtHlmKnk33lRYqNs-2kSFvLeJXQVqvmt4dAzeycBCxxC5jBA5k1jvjcb7DQ69x9iI9ex_q1yGvCxjRs-3pbTEoCUSGb8CF765_ycLOlO1XTQipULEjwN_Iv4MPU-onaxeKCQvkg7354plKFVcavdCaAMWhzv3pyV-gtZ7jytmvUuzJ0hVKaroBlsYqc0VxVSwCXsNI8U1r4rVFglYaB2Qy7pW"
+            />
+            <span class="leaves-count" id="scoreDisplay">0</span>
+          </div>
+        </div>
+        <!-- Level Progress Bar -->
+        <div class="level-bar-container">
+          <span class="level-label">LVL 1</span>
+          <div class="progress-track">
+            <div class="progress-fill" id="progressBar"></div>
+          </div>
+        </div>
+      </section>
+      <!-- Interactive Tree Area -->
+      <section class="tree-section" id="clickArea">
+        <div class="multiplier-badge">x1 Multiplier</div>
+        <div class="tree-container">
+          <img
+            alt="Growing Tree"
+            class="tree-sprite"
+            id="treeSprite"
+            src="https://lh3.googleusercontent.com/aida/AP1WRLthiE2_gofZ1Or_dSFCDqSPs5l4vVZEjI_eCOdzsKhTygWF9AF0nVWI05JXu-rc0AsRVYtoxLCoBgg0i1nm9M6WdaVNZepakK1Szud3Kc0MnzU8liVrvi3TxoCeTLGTvGJLMO05w_8c46D1ViWXQGbxLZWKXPj_cS7dfN8Ze4Z2MQ0kRuHE3ENUEZctf0iMky_AbFvIPguPbkr2lH5NKcejPtqIPa0IQTp8EWbyzl6RfBP8IMSqqSvIY-g"
+          />
+        </div>
+        <div class="tree-hint">TAP TO GROW</div>
+      </section>
+      <!-- Upgrades Shop -->
+      <section class="upgrades-section">
+        <h2 class="upgrades-title">
+          <span class="material-symbols-outlined">storefront</span>
+          Upgrades
+        </h2>
+        <div class="upgrades-list">
+          <!-- Upgrade 1: Watering Can -->
+          <button class="upgrade-btn">
+            <div class="upgrade-icon-box">
+              <img
+                alt="Watering Can"
+                class="upgrade-icon upgrade-icon-water"
+                src="https://lh3.googleusercontent.com/aida/AP1WRLuwq4tumJNRsspVzPE-UOUyAKsWgfKylvVbFD8kr3k4N2pc9DZaR9usaLLRtGgzXX_VVQAB4eVnJz9kTqUoGCjEDVYDYRoh6JokFz5rHPxhlr7e3QmOBGssgU4Ltn3w-TzH9QfuRu8R6aQ8UFxl1D0Q6D5M-JpeJs714hGAqwGfjoCZ7CWKUnRC0eRB2VEiE4lypqVNrkKEcDsC8FJw6wod-nY88lXmoJMYqCb1jufsU9H7Wi9CnRi5Ht_Q"
+              />
+            </div>
+            <div class="upgrade-details">
+              <h3 class="upgrade-name">Watering Can</h3>
+              <p class="upgrade-desc">+1 Leaf / Click</p>
+            </div>
+            <div class="upgrade-action">
+              <span class="upgrade-cost">10 LVS</span>
+              <span class="upgrade-buy-badge">BUY</span>
+            </div>
+          </button>
+          <!-- Upgrade 2: Fertilizer -->
+          <button class="upgrade-btn locked">
+            <div class="upgrade-icon-box">
+              <img
+                alt="Fertilizer"
+                class="upgrade-icon upgrade-icon-fert locked"
+                src="https://lh3.googleusercontent.com/aida/AP1WRLuwq4tumJNRsspVzPE-UOUyAKsWgfKylvVbFD8kr3k4N2pc9DZaR9usaLLRtGgzXX_VVQAB4eVnJz9kTqUoGCjEDVYDYRoh6JokFz5rHPxhlr7e3QmOBGssgU4Ltn3w-TzH9QfuRu8R6aQ8UFxl1D0Q6D5M-JpeJs714hGAqwGfjoCZ7CWKUnRC0eRB2VEiE4lypqVNrkKEcDsC8FJw6wod-nY88lXmoJMYqCb1jufsU9H7Wi9CnRi5Ht_Q"
+              />
+            </div>
+            <div class="upgrade-details">
+              <h3 class="upgrade-name">Fertilizer</h3>
+              <p class="upgrade-desc">+1 Leaf / Sec</p>
+            </div>
+            <div class="upgrade-action">
+              <span class="upgrade-cost">50 LVS</span>
+              <span class="upgrade-locked-badge">LOCKED</span>
+            </div>
+          </button>
+          <!-- Upgrade 3: Sunlight -->
+          <button class="upgrade-btn locked">
+            <div class="upgrade-icon-box">
+              <img
+                alt="Sunlight"
+                class="upgrade-icon upgrade-icon-sun locked"
+                src="https://lh3.googleusercontent.com/aida/AP1WRLuwq4tumJNRsspVzPE-UOUyAKsWgfKylvVbFD8kr3k4N2pc9DZaR9usaLLRtGgzXX_VVQAB4eVnJz9kTqUoGCjEDVYDYRoh6JokFz5rHPxhlr7e3QmOBGssgU4Ltn3w-TzH9QfuRu8R6aQ8UFxl1D0Q6D5M-JpeJs714hGAqwGfjoCZ7CWKUnRC0eRB2VEiE4lypqVNrkKEcDsC8FJw6wod-nY88lXmoJMYqCb1jufsU9H7Wi9CnRi5Ht_Q"
+              />
+            </div>
+            <div class="upgrade-details">
+              <h3 class="upgrade-name">Sunlight</h3>
+              <p class="upgrade-desc">x2 Multiplier</p>
+            </div>
+            <div class="upgrade-action">
+              <span class="upgrade-cost">200 LVS</span>
+              <span class="upgrade-locked-badge">LOCKED</span>
+            </div>
+          </button>
+        </div>
+      </section>
+    </main>
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+      <button class="nav-btn active">
+        <span class="material-symbols-outlined nav-icon">local_florist</span>
+        <span class="nav-label">GARDEN</span>
+      </button>
+      <button class="nav-btn">
+        <span class="material-symbols-outlined nav-icon">shopping_basket</span>
+        <span class="nav-label">SHOP</span>
+      </button>
+      <button class="nav-btn">
+        <span class="material-symbols-outlined nav-icon">equalizer</span>
+        <span class="nav-label">STATS</span>
+      </button>
+    </nav>
+    <!-- Logic -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const clickArea = document.getElementById("clickArea");
+        const scoreDisplay = document.getElementById("scoreDisplay");
+        const treeSprite = document.getElementById("treeSprite");
+        let score = 0;
+
+        clickArea.addEventListener("click", (event) => {
+          score++;
+          scoreDisplay.textContent = score;
+
+          treeSprite.classList.remove("tree-active");
+          void treeSprite.offsetWidth;
+          treeSprite.classList.add("tree-active");
+
+          const rect = clickArea.getBoundingClientRect();
+          let x = event.clientX - rect.left;
+          let y = event.clientY - rect.top;
+
+          const floatText = document.createElement("div");
+          floatText.textContent = "+1";
+          floatText.className = "floating-text";
+
+          const randomShift = (Math.random() - 0.5) * 30;
+          floatText.style.left = `${x + randomShift}px`;
+          floatText.style.top = `${y - 10}px`;
+
+          clickArea.appendChild(floatText);
+
+          setTimeout(() => {
+            floatText.remove();
+          }, 1000);
+        });
+      });
+    </script>
+  </body>
+</html>

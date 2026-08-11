@@ -1,14 +1,17 @@
-const yourCount = document.querySelector("#yourCount");
+const scoreCount = document.querySelector("#scoreCount");
 const btnWatering = document.querySelector("#btn-watering");
 // console.log(yourCount);
 let count = 0;
 
-yourCount.textContent =`${Math.floor(count)}`;
+scoreCount.textContent =`${Math.floor(count)}`;
 
 
 btnWatering.addEventListener(`click`, () => {
     count+=1;
-    yourCount.textContent = `${Math.floor(count)}`;
+    scoreCount.textContent = `${Math.floor(count)}`;
+    btnWatering.classList.remove(`treeActive`);
+    void btnWatering.offsetWidth;
+    btnWatering.classList.add(`treeActive`);
     });
 
 
