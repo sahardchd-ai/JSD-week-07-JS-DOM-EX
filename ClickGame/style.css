@@ -1,0 +1,61 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+    margin: 0px;
+    padding: 10px;
+    width: 100%;
+    min-height: 100vh;
+}
+
+header{
+    margin: 0px;
+    padding-bottom: 5%;
+    border: 5px solid black;
+}
+
+#field{
+    display: flex;
+    justify-content: space-evenly;
+    height: 100%;
+    align-items: center ;
+}
+
+section{
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column ;
+    /* justify-content: space-around; */
+    align-items:center;
+    border: 5px solid black;
+}
+
+#seperator{
+    flex: 1;
+
+}
+
+#yourCount{
+    margin: 10px;
+
+}
+
+#btn-watering {
+  /* ใส่ url( ... ) ครอบพาธไฟล์รูปภาพเอาไว้ */
+  background-image: url("media/istockphoto-1648523249-612x612-removebg-preview.png");
+  
+  /* แนะนำให้ใส่ 3 บรรทัดนี้เพิ่มเข้าไปด้วย เพื่อให้รูปภาพแสดงผลได้พอดีกับขนาดปุ่ม */
+  background-size:contain;       /* ขยายรูปให้เต็มพื้นที่ปุ่ม */
+  background-position: center;  /* จัดให้รูปอยู่กึ่งกลางปุ่ม */
+  background-repeat: no-repeat; /* ไม่ให้รูปภาพแสดงซ้ำ */
+  width:300px;   /* ปรับความกว้างของปุ่ม */
+  height:300px;   /* ปรับความสูงของปุ่ม */
+  border: none;
+  border-radius: 12px; /* เพิ่มความโค้งมนให้ปุ่มดูทันสมัย */
+  cursor: pointer;     /* เปลี่ยนเมาส์เป็นรูปมือเวลาชี้ */
+
+}
