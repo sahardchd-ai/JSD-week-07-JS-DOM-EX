@@ -1,0 +1,30 @@
+.Pokemon_card{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-color: beige;
+}
+
+#btn-newpokemon {
+  /* 1. ขนาดและระยะห่าง */
+  padding: 12px 24px;         /* ระยะห่างข้างในปุ่ม (บน-ล่าง 12px, ซ้าย-ขวา 24px) */
+  font-size: 32px;            /* ขนาดตัวอักษร */
+  font-weight: bold;          /* ตัวอักษรตัวหนา */
+
+  /* 2. สีและขอบ */
+  background-color: red;  /* สีพื้นหลัง (สีเขียว) */
+  color: white;               /* สีตัวอักษร */
+  border: none;               /* เอาเส้นขอบดำๆ เดิมออก */
+  border-radius: 8px;         /* ทำมุมปุ่มให้มน */
+
+  /* 3. ตกแต่งเพิ่มเติม */
+  cursor: pointer;            /* เปลี่ยนรูปเมาส์เป็นนิ้วชี้เมื่อเอาเมาส์ไปชี้ */
+  transition: 0.3s;           /* ทำให้นิเมชันตอนเปลี่ยนสีดูนุ่มนวลขึ้น */
+}
+
+/* 4. Effect ตอนเอาเมาส์ไปชี้ (Hover) */
+#btn-newpokemon:hover {
+  background-color: #45a049;  /* เปลี่ยนเป็นสีเขียวที่เข้มขึ้นเล็กน้อย */
+  transform: translateY(-2px); /* ลอยขึ้นข้างบนเล็กน้อย 2px */
+}

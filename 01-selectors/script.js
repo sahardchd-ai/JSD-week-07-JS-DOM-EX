@@ -20,11 +20,12 @@ console.log(document.querySelectorAll(".fruit").length);
 
 // TODO 5: Loop over the fruit elements (.forEach) and console.log() each
 // one's textContent.
-document.querySelectorAll(".fruit").forEach((fruitElement) => {console.log(fruitElement.textContent)})
+// document.querySelectorAll(".fruit").forEach((fruitElement) => {console.log(fruitElement.textContent)})
+// fruit.forEach((fruitElement) => {console.log(fruitElement.textContent)})``
 
 
 // TODO 6: Select the single element with the attribute data-fresh="false"
 // using querySelector('[data-fresh="false"]') and log its textContent.
-console.log(document.querySelector('[data-fresh="false"]').textContent);
+// console.log(document.querySelector('[data-fresh="false"]').textContent);
 // ถ้าจะให้หาที่มีattribute"false"หลายๆตัว
-// document.querySelectorAll('[data-fresh="false"]').forEach((fruitElement) => {console.log(fruitElement.textContent)});
+document.querySelectorAll('[data-fresh="false"]').forEach((fruitElement) => {console.log(fruitElement.textContent)});
