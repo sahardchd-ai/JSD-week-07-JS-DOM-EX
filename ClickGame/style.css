@@ -5,112 +5,82 @@
   font-family: "Be Vietnam Pro", sans-serif;
 }
 
-/* ลบ padding ออก และตั้ง body ให้เป็น Flexbox แนวตั้ง */
 body {
   width: 100vw;
   height: 100vh;
   background-color: #f9f7f2;
-  overflow: hidden; /* ป้องกันแถบสกรอลล์ */
+  /* ป้องกันแถบสกรอลล์ */
+  /* overflow: hidden;  */
   display: flex;
   flex-direction: column;
-}
-
-/* Header กำหนดความสูงคงที่ หรือใช้ padding แบบพอดีๆ */
-header {
-  padding: 15px 0;
   border: 5px solid black;
-  text-align: center;
 }
 
-/* #field จะดึงพื้นที่ความสูงส่วนที่เหลือทั้งหมดของหน้าจอมาใช้ */
-#field {
-  flex: 1;
+header {
   display: flex;
-  width: 100%;
-  height: 100%;
+  justify-content: space-between;
+  align-items: center;
+  height: 200px;
+  padding: 20px 20px;
+  border-bottom: 5px solid black;
+  box-sizing: border-box;
 }
 
-/* ปรับ section (ฝั่งซ้ายและฝั่งขวา) ให้ขยายเต็มความสูงและแบ่งครึ่งพอดี */
-section {
-  flex: 1; /* ขยายกว้างเท่าๆ กัน */
-  height: 100%;
+.leaves-icon {
+  display: flex;
+  box-sizing: border-box;
+  height: 130px;
+  width: auto;
+  cursor: pointer;
+  image-rendering: pixelated;
+  /* align-items: center; */
+  /* border: none; ถ้าต้องการเอาเส้นขอบออกด้วย */
+  /* outline: none; */
+  /* cursor: pointer; */
+  /* object-fit: contain; */
+}
+#headTitle {
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.stats-btn {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* จัดเนื้อหาตรงกลางแนวตั้ง */
-  /* justify-content: space-around; */
-  border: 5px solid black;
+  justify-content: center;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+}
+
+#field {
+  display: flex;
+  flex: 1; /* ยืดกินพื้นที่ส่วนล่างทั้งหมด */
+  width: 100%;
+  align-items: flex-start; /* จัดเนื้อหาภายในให้อยู่กึ่งกลางแนวตั้ง */
+  box-sizing: border-box;
 }
 
 #sectionLeft {
-  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* จัดเนื้อหาตรงกลางแนวตั้ง */
-  /* justify-content: space-between; */
-}
-
-#sectionRight {
-  display: flex;
-  flex-direction: column;
+  flex: 1;
   justify-content: flex-start;
-}
-
-#seperator {
-  width: auto;
-  /* flex: 1; */
+  padding-top: 30px;
 }
 
 #scoreText {
-  margin: 20px;
-  padding: 20px;
-
-  /* 1. ปรับปรุงเส้นขอบให้ดูโมเดิร์นและชัดเจน (ลบ border-style: groove ออก) */
-  border: 4px solid black;
-  border-radius: 8px; /* เพิ่มความโค้งมนเล็กน้อยให้ดูไม่แข็งเกินไป */
-
-  /* 2. กำหนดขนาดกล่องตามต้องการ */
-  box-sizing: border-box;
-  width: 200px;
-  height: auto; /* ลดความสูงลงเล็กน้อยเพื่อให้ดูสมดุลกับข้อความเดียว */
-  gap: 20px;
-
-  /* 3. **จุดสำคัญ** จัดกึ่งกลางข้อความทั้งแนวตั้งและแนวนอนภายในกล่อง */
-  display: flex; /* เปลี่ยนกล่องนี้ให้เป็น Flex Container */
-  flex-direction: column;
-  justify-content: center; /* จัดกึ่งกลางแนวนอน */
-  align-items: center; /* จัดกึ่งกลางแนวตั้ง */
-
-  /* 4. ปรับแต่งตัวอักษรให้สวยงาม */
-  font-weight: bold; /* ทำตัวหนา */
-  font-size: 40px; /* ปรับขนาดตามชอบ */
-  text-transform: uppercase; /* ทำตัวพิมพ์ใหญ่ทั้งหมด (ถ้าชอบสไตล์นี้) */
-  letter-spacing: 1px; /* เพิ่มระยะห่างระหว่างตัวอักษรเล็กน้อย */
-
-  /* (ตัวเลือกเสริม) เพิ่มเงาให้กล่องดูมีมิติ */
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  /* 3. ปรับ padding ออก แล้วใช้ margin เว้นระยะห่างด้านล่างแทน */
+  padding: 30px 0;
+  margin-bottom: 10px;
+  font-size: 30px;
+  text-align: center;
 }
 
-/* กำหนดขนาดให้ไอคอน */
-.leaves-icon {
-  width: 32px;         /* กำหนดความกว้างของไอคอน */
-  height: 32px;        /* กำหนดความสูงของไอคอน */
-  object-fit: contain;  /* ปรับให้รูปคงสัดส่วนเดิม ไม่เบี้ยว */
-  display: inline-block;
-  vertical-align: middle;
-}
-
-#tree-hint{
-  margin: 20px;
-}
-
-#scoreCount {
-  margin-bottom: 50px;
-  font-size: 42px;
-  font-weight: bold;
-  line-height: 1; /* ลบระยะห่างขอบบน-ล่างส่วนเกินของตัวเลข */
-  margin: 0;
+#tree-hint {
+  padding: 20px 0;
 }
 
 #btn-watering {
@@ -124,6 +94,8 @@ section {
   border: none;
   border-radius: 100%;
   cursor: pointer;
+  padding: 100px;
+  margin-bottom: 100px;
 }
 
 @keyframes treeBop {
@@ -144,4 +116,63 @@ section {
 /* ส่วนเรียกใช้ยังคงเดิม */
 .treeActive {
   animation: treeBop 0.2s ease-in-out;
+}
+
+#seperator {
+  align-self: stretch; /* ยืดเต็มความสูงของ .main-container */
+  border-left: 5px solid black; /* ความหนาเส้น */
+  margin: 0; /* เว้นระยะห่างซ้าย-ขวา */
+}
+
+#sectionRight {
+  flex: 1; /* บังคับกินพื้นที่ 50% ของฝั่งขวาเท่ากับฝั่งซ้าย */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* หรือ flex-start หากต้องการชิดซ้ายภายในฝั่งขวา */
+  padding: 20px;
+  justify-content: flex-start;
+  padding-top: 30px;
+  text-align: center;
+}
+
+#upgradeStore {
+  width: 100%; /* ให้กล่องร้านค้าขยายเต็มพื้นที่ฝั่งขวา */
+  max-width: 500px; /* กำหนดความกว้างสูงสุดเพื่อความสวยงาม */
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* ระยะห่างระหว่างปุ่มอัปเกรดแต่ละอัน */
+}
+
+#upgrade{
+  display: flex;
+  align-items: center; /* จัดให้อยู่กึ่งกลางแนวตั้งเท่ากัน */
+  justify-content: space-between; /* กระจาย 3 ส่วน: ซ้ายสุด - กลาง - ขวาสุด */
+
+  width: 100%;
+  padding: 12px 20px;
+  background-color: #ffffff; /* เปลี่ยนสีพื้นหลังตามชอบ */
+  color: aqua;
+  border: 3px solid black;
+  border-radius: 8px;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+/* --- จัดการพื้นที่กึ่งกลาง --- */
+.upgrade-title {
+  flex: 1;
+  text-align: left;              /* ชิดซ้าย */
+  font-weight: bold;
+}
+
+.upgrade-cost {
+  flex: 1;
+  text-align: center;            /* ตรงกลางเป๊ะ */
+}
+
+.upgrade-count {
+  flex: 1;
+  text-align: right;             /* ชิดขวา */
+  font-weight: bold;
 }

@@ -11,11 +11,28 @@
       href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+    />
   </head>
   <body>
     <header>
-      <h1 style="text-align: center">Raise your tree</h1>
-      <p style="text-align: center">Water your plants to help them grow.</p>
+      <a href="index.html">
+        <img
+          src="media/clicktreeicon-removebg-preview2.png"
+          alt="Sapling Logo"
+          class="leaves-icon"
+        />
+      </a>
+      <div id="headTitle">
+        <h1>Raise your tree</h1>
+        <p>Water your plants to help them grow.</p>
+      </div>
+      <div class="stats-btn" type="button">
+        <span class="material-symbols-outlined" id="statIcon">bar_chart</span>
+        <span class="btn-label">STATS</span>
+      </div>
     </header>
 
     <div id="field">
@@ -23,23 +40,34 @@
       <section id="sectionLeft">
         <div id="scoreText">
           <div>Score</div>
-          <div id="scoreCount">
-            <img
-              alt="Sapling Logo"
-              class="leaves-icon"
-              src="media/clicktreeicon.jpg"
-            />
-          </div>
+          <div id="scoreCount"></div>
         </div>
         <div id="tree-hint">TAP TO WATERING</div>
         <button id="btn-watering"></button>
+        <button id="btn-reset">Don't click it</button>
       </section>
 
       <div id="seperator"></div>
       <!--เส้นแบ่งsection-->
 
-      <!-- section left -->
-      <section id="sectionRight">Your stat and store</section>
+      <!-- section right -->
+      <section id="sectionRight">
+        <div>
+          <h2>Store</h2>
+          <p>use your to upgrade your skill issue</p>
+        </div>
+        <div id="upgradeStore">
+          <div id="upgrade">
+            <p class="upgrade-title">Add Fertilizer</p>
+
+            <p class="upgrade-cost">15 scores</p>
+
+            <p id="fertilizerCount" class="upgrade-count">0</p>
+          </div>
+          <div></div>
+          <div></div>
+        </div>
+      </section>
 
       <!-- <div id="seperator"></div>เส้นแบ่งsection -->
     </div>
