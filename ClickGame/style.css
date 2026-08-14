@@ -7,7 +7,7 @@
 
 body {
   width: 100vw;
-  height: 100vh;
+  /* height: 100vh; */
   background-color: #f9f7f2;
   /* ป้องกันแถบสกรอลล์ */
   /* overflow: hidden;  */
@@ -33,11 +33,7 @@ header {
   width: auto;
   cursor: pointer;
   image-rendering: pixelated;
-  /* align-items: center; */
-  /* border: none; ถ้าต้องการเอาเส้นขอบออกด้วย */
-  /* outline: none; */
-  /* cursor: pointer; */
-  /* object-fit: contain; */
+
 }
 #headTitle {
   text-align: center;
@@ -62,6 +58,8 @@ header {
   box-sizing: border-box;
 }
 
+/* SectionLeft */
+
 #sectionLeft {
   display: flex;
   flex-direction: column;
@@ -85,13 +83,13 @@ header {
 
 #btn-watering {
   background-image: url("media/istockphoto-1648523249-612x612-removebg-preview.png");
-  background-color: black;
+  background-color: #A05D3D;
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
   width: 400px;
   height: 400px;
-  border: none;
+  border: solid #6E3B21;
   border-radius: 100%;
   cursor: pointer;
   padding: 100px;
@@ -124,6 +122,8 @@ header {
   margin: 0; /* เว้นระยะห่างซ้าย-ขวา */
 }
 
+/* SectionRight */
+
 #sectionRight {
   flex: 1; /* บังคับกินพื้นที่ 50% ของฝั่งขวาเท่ากับฝั่งซ้าย */
   display: flex;
@@ -144,15 +144,11 @@ header {
   gap: 12px; /* ระยะห่างระหว่างปุ่มอัปเกรดแต่ละอัน */
 }
 
-#upgrade{
+.canBuy {
   display: flex;
   align-items: center; /* จัดให้อยู่กึ่งกลางแนวตั้งเท่ากัน */
   justify-content: space-between; /* กระจาย 3 ส่วน: ซ้ายสุด - กลาง - ขวาสุด */
 
-  width: 100%;
-  padding: 12px 20px;
-  background-color: #ffffff; /* เปลี่ยนสีพื้นหลังตามชอบ */
-  color: aqua;
   border: 3px solid black;
   border-radius: 8px;
   box-sizing: border-box;
@@ -162,17 +158,43 @@ header {
 /* --- จัดการพื้นที่กึ่งกลาง --- */
 .upgrade-title {
   flex: 1;
-  text-align: left;              /* ชิดซ้าย */
+  text-align: left; /* ชิดซ้าย */
   font-weight: bold;
 }
 
 .upgrade-cost {
   flex: 1;
-  text-align: center;            /* ตรงกลางเป๊ะ */
+  text-align: center; /* ตรงกลางเป๊ะ */
 }
 
 .upgrade-count {
   flex: 1;
-  text-align: right;             /* ชิดขวา */
+  text-align: right; /* ชิดขวา */
   font-weight: bold;
+}
+
+.is-disabled {
+  width: 100%;
+  padding: 10px 20px;
+  background-color: #e0e0e0; /* เปลี่ยนเป็นสีเทาอ่อนเพื่อให้ดูเหมือนปิดใช้งาน */
+  color: #888888; /* ตัวหนังสือสีเทาเข้มขึ้นเล็กน้อยให้อ่านง่ายแต่ยังดูdisabled */
+  border: 3px solid #cccccc; /* ขอบสีเทาอ่อนลง */
+  border-radius: 8px;
+  box-sizing: border-box;
+  cursor: not-allowed; /* แสดงไอคอนห้ามกด */
+  opacity: 0.7; /* ทำให้ปุ่มดูจางลงเล็กน้อย */
+  pointer-events: none;
+}
+
+.is-active {
+  width: 100%;
+  padding: 20px 40px;
+  background-color: #216b39;
+  color: white;
+  border: 3px solid #2c7844;
+  border-radius: 8px;
+  background-size: 100% 100%;
+
+  box-sizing: border-box;
+  cursor: pointer;
 }
