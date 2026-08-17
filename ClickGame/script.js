@@ -3,9 +3,9 @@ const btnWatering = document.querySelector("#btn-watering");
 const upgradeStore = document.querySelector("#upgradeStore");
 // const  = document.querySelector("");
 
+// ประกาศ ชื่อที่เก็บเป็น ""(ในStringจะใส่อะไรก็ได้)
 const localScore = "localScore";
 const localTotalScore = "localTotalScore";
-const localUpgrade1Count = "localUpgrade1Count";
 
 let count = Number(localStorage.getItem(localScore)) || 0;
 let totalCount = Number(localStorage.getItem(localTotalScore)) || 0;
@@ -21,8 +21,7 @@ btnWatering.addEventListener(`click`, () => {
   localStorage.setItem(localTotalScore, totalCount);
   console.clear();
   console.log(totalCount);
-
-  updateUpgrade1Status();
+  updateAllUpgrades();
 
   // เพิ่มอนิเมชันการกดปุ่ม
   btnWatering.classList.remove(`treeActive`);
@@ -39,46 +38,66 @@ reset.addEventListener(`click`, () => {
   console.log(totalCount);
 });
 
-// ฟังก์ชันอัปเกรดร้านค้าขั้น1
-const upgrade1 = document.getElementById("upgrade1");
-const fertilizerCount1 = document.getElementById("fertilizerCount1");
-let upgrade1Cost = 15; // คะแนนที่ใช้
-let upgrade1Count = Number(localStorage.getItem(localUpgrade1Count)) || 0; //จำนวนที่อัปเกรด
+// ถ้าscoreถึงเกณฑ์ จะปลดลอค(แยกแต่ละอัปเกรด)
+// function updateUpgrade1Status() {
+//   if (count >= upgrade1Cost) {
+//     // คะแนนพอ -> ปลดล็อก
+//     upgrade1.classList.add("is-active");
+//     upgrade1.classList.remove("is-disabled");
+//   } else {
+//     // คะแนนไม่พอ -> ล็อกไว้
+//     upgrade1.classList.add("is-disabled");
+//     upgrade1.classList.remove("is-active");
+//   }
+// }
 
-function updateUpgrade1Status() {
-  if (count >= upgrade1Cost) {
-    // คะแนนพอ -> ปลดล็อก
-    upgrade1.classList.add("is-active");
-    upgrade1.classList.remove("is-disabled");
-  } else {
-    // คะแนนไม่พอ -> ล็อกไว้
-    upgrade1.classList.add("is-disabled");
-    upgrade1.classList.remove("is-active");
-  }
+
+const upgradeList = [
+  { name: document.querySelector("#upgrade1"), cost: 15, count: 0 }, // ตัวเลข 15 ถูกก๊อปปี้มาวางตรงนี้
+  { name: document.querySelector("#upgrade2"), cost: 60, count: 0 }, // ตัวเลข 15 ถูกก๊อปปี้มาวางตรงนี้
+];
+// upgradeList[0].cost = 15;
+// upgradeList[1].cost = 15;
+
+
+// อัปเดทค่าในการอัปเกรดจากร้านทั้งหมด
+function updateAllUpgrades() {
+  upgradeList.forEach((upg) => {
+    const canAfford = count >= upg.cost;
+    upg.name.classList.toggle("is-active", canAfford);
+    upg.name.classList.toggle("is-disabled", !canAfford);
+  });
 }
 
-// เมื่อกดซื้ออัปเกรด
-upgrade1.addEventListener(`click`, () => {
-  if (count >= upgrade1Cost) {
-    count -= upgrade1Cost; // หักคะแนนซื้อ
-    upgrade1Count += 1; // เพิ่มจำนวนอัปเกรด
+// ฟังก์ชั่นการอัปเกรดขั้น1
+// const upgrade1 = document.querySelector("#upgrade1");
+const fertilizerCount1 = document.querySelector("#fertilizerCount1");
+const localupgrade1Count = "localupgrade1Count";
+let upgrade1Count = Number(localStorage.getItem(localupgrade1Count)) || 0;
+// ถ้าscoreถึงเกณฑ์ จะปลดลอค(แบบใช้ข้อมูลเป็นArrayเพื่อให้ลดขั้นการเขียนโค้ด)
 
-    // แสดงค่าในUI
+upgradeList[0].name.addEventListener(`click`, () => {
+  if (count >= upgrade1Cost) {
+    count -= upgrade1Cost;
+    upgrade1Count += 1;
+
+    // แสดงค่าที่เปลี่ยนในการอัปเกดรขั้น1
     fertilizerCount1.textContent = upgrade1Count;
     scoreCount.textContent = `${Math.floor(count)}`;
 
+    // อัปเดทค่าที่เปลี่ยนในการอัปเกดรขั้น1
     localStorage.setItem(localScore, count);
     localStorage.setItem(localUpgrade1Count, upgrade1Count);
 
-    updateUpgrade1Status();
+    // อัปเดทdivอัปเกรดขั้น1
+    updateAllUpgrades();
   }
 });
 
 setInterval(() => {
-  // 🔥 ปั๊มคะแนนเฉพาะตอนที่มีอัปเกรดอย่างน้อย 1 ชิ้น
   if (upgrade1Count > 0) {
     const income = upgrade1Count * 0.1;
-    
+
     count += income;
     totalCount += income; // 🔥 แก้ไข: เพิ่มค่า totalCount ตรงนี้ด้วย!
 
@@ -86,84 +105,17 @@ setInterval(() => {
     count = Number(count.toFixed(1));
     totalCount = Number(totalCount.toFixed(1));
 
-    // แสดงผลบน UI
-    scoreCount.textContent = `${Math.floor(count)}`;
-
     // บันทึกค่าลง localStorage
     localStorage.setItem(localScore, count);
     localStorage.setItem(localTotalScore, totalCount);
 
-    updateUpgrade1Status();
+    updateAllUpgrades();
   }
 }, 500);
-
-// ฟังก์ชันอัปเกรดร้านค้าขั้น2
-const upgrade2 = document.getElementById("upgrade2");
-const fertilizerCount2 = document.getElementById("fertilizerCount2");
-let upgrade2Cost = 100; // คะแนนที่ใช้
-let upgrade2Count = Number(localStorage.getItem(localUpgrade2Count)) || 0; //จำนวนที่อัปเกรด
-
-function updateUpgrade2Status() {
-  if (count >= upgrade2Cost) {
-    // คะแนนพอ -> ปลดล็อก
-    upgrade2.classList.add("is-active");
-    upgrade2.classList.remove("is-disabled");
-  } else {
-    // คะแนนไม่พอ -> ล็อกไว้
-    upgrade2.classList.add("is-disabled");
-    upgrade2.classList.remove("is-active");
-  }
-}
-
-
-// เมื่อกดซื้ออัปเกรด
-upgrade2.addEventListener(`click`, () => {
-  if (count >= upgrade2Cost) {
-    count -= upgrade2Cost; // หักคะแนนซื้อ
-    upgrade2Count += 1; // เพิ่มจำนวนอัปเกรด
-
-    // แสดงค่าในUI
-    fertilizerCount2.textContent = upgrade2Count;
-    scoreCount.textContent = `${Math.floor(count)}`;
-
-    localStorage.setItem(localScore, count);
-    localStorage.setItem(localUpgrade2Count, upgrade2Count);
-
-    updateUpgrade2Status();
-  }
-});
-
-setInterval(() => {
-  // 🔥 ปั๊มคะแนนเฉพาะตอนที่มีอัปเกรดอย่างน้อย 1 ชิ้น
-  if (upgrade2Count > 0) {
-    const income = upgrade2Count * 0.1;
-    
-    count += income;
-    totalCount += income; // 🔥 แก้ไข: เพิ่มค่า totalCount ตรงนี้ด้วย!
-
-    // ป้องกันทศนิยมเพี้ยน
-    count = Number(count.toFixed(1));
-    totalCount = Number(totalCount.toFixed(1));
-
-    // แสดงผลบน UI
-    scoreCount.textContent = `${Math.floor(count)}`;
-
-    // บันทึกค่าลง localStorage
-    localStorage.setItem(localScore, count);
-    localStorage.setItem(localTotalScore, totalCount);
-
-    updateUpgrade2Status();
-  }
-}, 500);
-
-
-
-
-
 
 // ก่รประกาศตัวแปรและฟังก์ชันต่างๆเมื่อเริ่มเวปหรือรีเฟรช
 scoreCount.textContent = `${Math.floor(count)}`;
 fertilizerCount1.textContent = upgrade1Count; // แสดงจำนวนอัปเกรดเดิมที่เคยซื้อไว้
-fertilizerCount2.textContent = upgrade1Count; // แสดงจำนวนอัปเกรดเดิมที่เคยซื้อไว้
-updateUpgrade1Status();
-updateUpgrade2Status()
+// fertilizerCount2.textContent = upgrade1Count; // แสดงจำนวนอัปเกรดเดิมที่เคยซื้อไว้
+updateAllUpgrades();
+// updateUpgrade2Status();
